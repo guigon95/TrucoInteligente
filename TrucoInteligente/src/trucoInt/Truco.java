@@ -24,7 +24,6 @@ public class Truco {
             novo.geraBaralho();
             
             novo.distribuiCartas();
-            //teste
             
             System.out.println("Vira:");
             vira = novo.sortearVira();

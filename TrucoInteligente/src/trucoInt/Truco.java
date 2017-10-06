@@ -19,7 +19,7 @@ public class Truco {
      
      public static void main(String[] args){
          
-           Cartas cartaJogador, cartaMaquina;
+            Cartas cartaJogador, cartaMaquina;
             Baralho novo = new Baralho();
             novo.geraBaralho();
             
@@ -41,16 +41,32 @@ public class Truco {
             novo.mostrarCartasMaquina();
                
             
-            cartaJogador = new Cartas(); 
-            cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));
-            cartaJogador.setNaipe(JOptionPane.showInputDialog("Digite o naipe"));
-            JOptionPane.showConfirmDialog(null, "teste", "Vai", 0);
-            System.out.println("Carta jogador: "+cartaJogador.getNumero());
-            System.out.println("Carta jogador: "+cartaJogador.getNaipe());
-
-    
+           // cartaJogador = new Cartas(); 
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
+                    novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
+            int posCartaEscolhida = JOptionPane.showOptionDialog(null,
+                "Escolha uma carta",
+                 "Cartas Jogador",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[2]);
             
+            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            novo.removerCartasJogador(posCartaEscolhida);//remove carta do jogador
+                        
+            //cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));
+            //cartaJogador.setNaipe(JOptionPane.showInputDialog("Digite o naipe"));
+            // JOptionPane.showConfirmDialog(null, "teste", "Vai", 0);
+            //System.out.println("Carta jogador: "+cartaJogador.getNumero());
+            //System.out.println("Carta jogador: "+cartaJogador.getNaipe());
             
+            System.out.println("Cartas Jogador");
+            novo.mostrarCartasJogador();
+            System.out.println("Cartas Turno");   
+            novo.mostrarCartasTurno();
             
     }    
 }

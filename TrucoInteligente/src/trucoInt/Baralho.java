@@ -27,7 +27,7 @@ public class Baralho {
     private Cartas cartas;
     private Cartas vira;
     
-    
+    Jogo jogo = new Jogo();
     
     public void geraBaralho() {
        
@@ -230,6 +230,7 @@ public class Baralho {
         for (int i = 0; i < cartasJogador.size(); i++) {
            System.out.print(cartasJogador.get(i).getNumero()+" - ");       
            System.out.println(cartasJogador.get(i).getNaipe()+" Valor: "+cartasJogador.get(i).getValor());  
+           jogo.setCarta();
         } 
     }
     

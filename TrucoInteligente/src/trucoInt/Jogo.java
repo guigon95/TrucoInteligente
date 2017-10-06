@@ -5,17 +5,28 @@
  */
 package trucoInt;
 
+import java.awt.Label;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mathe
  */
 public class Jogo extends javax.swing.JFrame {
 
+     private static Cartas vira;
     /**
      * Creates new form Jogo
      */
     public Jogo() {
+      
         initComponents();
+          lbl_carta1.setVisible(false);
+          lbl_carta2.setVisible(false);
+          lbl_carta3.setVisible(false);
+        
     }
 
     /**
@@ -27,18 +38,30 @@ public class Jogo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lbl_carta1 = new javax.swing.JLabel();
+        lbl_carta2 = new javax.swing.JLabel();
+        lbl_carta3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(3264, 2448));
+        getContentPane().setLayout(null);
+
+        lbl_carta1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/2-paus.png"))); // NOI18N
+        getContentPane().add(lbl_carta1);
+        lbl_carta1.setBounds(190, 330, 80, 107);
+
+        lbl_carta2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/2-paus.png"))); // NOI18N
+        getContentPane().add(lbl_carta2);
+        lbl_carta2.setBounds(290, 330, 80, 107);
+
+        lbl_carta3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/2-paus.png"))); // NOI18N
+        getContentPane().add(lbl_carta3);
+        lbl_carta3.setBounds(390, 330, 80, 107);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fundo.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 650, 470);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -47,6 +70,7 @@ public class Jogo extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -76,8 +100,69 @@ public class Jogo extends javax.swing.JFrame {
                 new Jogo().setVisible(true);
             }
         });
+        
+          Cartas cartaJogador, cartaMaquina;
+            Baralho novo = new Baralho();
+            novo.geraBaralho();
+            
+            novo.distribuiCartas();
+            
+            System.out.println("Vira:");
+            vira = novo.sortearVira();
+            System.out.print(vira.getNumero()+" - ");
+            System.out.println(vira.getNaipe());
+            
+            novo.atribuirManilhas();
+            
+            novo.atribuirPesos(novo.cartasJogador);
+            novo.atribuirPesos(novo.cartasMaquina);
+            System.out.println("Cartas Jogador");
+            novo.mostrarCartasJogador();
+            
+            System.out.println("Cartas Maquina");
+            novo.mostrarCartasMaquina();
+               
+            
+           // cartaJogador = new Cartas(); 
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
+                    novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
+            int posCartaEscolhida = JOptionPane.showOptionDialog(null,
+                "Escolha uma carta",
+                 "Cartas Jogador",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[2]);
+            
+            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            novo.removerCartasJogador(posCartaEscolhida);//remove carta do jogador
+                        
+            //cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));
+            //cartaJogador.setNaipe(JOptionPane.showInputDialog("Digite o naipe"));
+            // JOptionPane.showConfirmDialog(null, "teste", "Vai", 0);
+            //System.out.println("Carta jogador: "+cartaJogador.getNumero());
+            //System.out.println("Carta jogador: "+cartaJogador.getNaipe());
+            
+            System.out.println("Cartas Jogador");
+            novo.mostrarCartasJogador();
+            System.out.println("Cartas Turno");   
+            novo.mostrarCartasTurno();
+            
+    }
+    
+    public void setCarta(){
+       
+        ImageIcon carta1 = new ImageIcon("imagens/spades-3-75.png");
+        lbl_carta1.setIcon(carta1);
+        lbl_carta1.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbl_carta1;
+    private javax.swing.JLabel lbl_carta2;
+    private javax.swing.JLabel lbl_carta3;
     // End of variables declaration//GEN-END:variables
 }

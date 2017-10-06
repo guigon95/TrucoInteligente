@@ -22,6 +22,7 @@ public class Baralho {
     ArrayList<Cartas> cartasJogador = new ArrayList<Cartas>();
     ArrayList<Cartas> cartasMaquina = new ArrayList<Cartas>();
     ArrayList<Cartas> manilhas = new ArrayList<Cartas>();
+    ArrayList<Cartas> turno = new ArrayList<Cartas>();
     
     private Cartas cartas;
     private Cartas vira;
@@ -204,6 +205,18 @@ public class Baralho {
         }
     }
     
+    public void addCartasTurno(Cartas carta){
+        turno.add(carta);
+    }
+    
+    public void mostrarCartasTurno(){
+        
+        for (int i = 0; i < turno.size(); i++) {
+           System.out.print(turno.get(i).getNumero()+" - ");       
+           System.out.println(turno.get(i).getNaipe()+" Valor: "+turno.get(i).getValor());  
+        } 
+    }
+    
     public Cartas sortearVira(){
         
     vira = distribuirBaralho.get(0);
@@ -218,6 +231,11 @@ public class Baralho {
            System.out.print(cartasJogador.get(i).getNumero()+" - ");       
            System.out.println(cartasJogador.get(i).getNaipe()+" Valor: "+cartasJogador.get(i).getValor());  
         } 
+    }
+    
+    public void removerCartasJogador(int pos){
+        cartasJogador.remove(pos);
+        
     }
             
     public void mostrarCartasMaquina(){

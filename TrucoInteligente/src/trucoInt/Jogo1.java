@@ -13,16 +13,19 @@ import javax.swing.JOptionPane;
  *
  * @author kira
  */
-public class Jogo extends javax.swing.JFrame {
+public class Jogo1 extends javax.swing.JFrame {
     
     private static Cartas vira;
     Truco truco;
+    int rodada = 1, rodadaMaquinaPontos = 0, rodadaJogadorPontos = 0, vez = 0;
+    Cartas maquinaTurno;
+    Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
     
     /**
      * Creates new form Jogo
      */
-    public Jogo() {
+    public Jogo1() {
         initComponents();
         
         lbl_carta1.setVisible(false);
@@ -54,7 +57,12 @@ public class Jogo extends javax.swing.JFrame {
         btn_jogar = new javax.swing.JButton();
         lbl_cartaJogadorTurno = new javax.swing.JLabel();
         lbl_cartaMaquinaTurno = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_verificar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lbl_pontosJogador = new javax.swing.JLabel();
+        lbl_pontosMaquina = new javax.swing.JLabel();
+        btn_tornar = new javax.swing.JButton();
         lbl_fundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,7 +106,7 @@ public class Jogo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_jogar);
-        btn_jogar.setBounds(500, 360, 73, 23);
+        btn_jogar.setBounds(490, 340, 80, 23);
 
         lbl_cartaJogadorTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_cartaJogadorTurno);
@@ -108,9 +116,43 @@ public class Jogo extends javax.swing.JFrame {
         getContentPane().add(lbl_cartaMaquinaTurno);
         lbl_cartaMaquinaTurno.setBounds(150, 180, 80, 120);
 
-        jButton1.setText("Tornar");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(500, 400, 65, 23);
+        btn_verificar.setText("Verificar");
+        btn_verificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_verificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_verificar);
+        btn_verificar.setBounds(490, 380, 80, 23);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Pontos:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(10, 390, 50, 14);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setText("Pontos:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(480, 40, 50, 14);
+
+        lbl_pontosJogador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_pontosJogador.setText("0");
+        getContentPane().add(lbl_pontosJogador);
+        lbl_pontosJogador.setBounds(60, 390, 7, 14);
+
+        lbl_pontosMaquina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_pontosMaquina.setText("0");
+        getContentPane().add(lbl_pontosMaquina);
+        lbl_pontosMaquina.setBounds(530, 40, 7, 14);
+
+        btn_tornar.setText("Tornar");
+        btn_tornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_tornarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_tornar);
+        btn_tornar.setBounds(490, 420, 80, 23);
 
         lbl_fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fundo.jpg"))); // NOI18N
         getContentPane().add(lbl_fundo);
@@ -120,10 +162,21 @@ public class Jogo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_jogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jogarActionPerformed
-    
+     
+       //rodada = 0;
        iniciarJogada();
         
     }//GEN-LAST:event_btn_jogarActionPerformed
+
+    private void btn_verificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verificarActionPerformed
+        verificar();
+    }//GEN-LAST:event_btn_verificarActionPerformed
+
+    private void btn_tornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tornarActionPerformed
+        
+        tornar();
+        
+    }//GEN-LAST:event_btn_tornarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,27 +195,31 @@ public class Jogo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Jogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jogo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Jogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jogo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Jogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jogo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Jogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Jogo1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Jogo().setVisible(true);
+                new Jogo1().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_jogar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_tornar;
+    private javax.swing.JButton btn_verificar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbl_carta1;
     private javax.swing.JLabel lbl_carta2;
     private javax.swing.JLabel lbl_carta3;
@@ -173,6 +230,8 @@ public class Jogo extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_cartaMaquinaTurno;
     private javax.swing.JLabel lbl_fundo;
     private javax.swing.JLabel lbl_monte;
+    private javax.swing.JLabel lbl_pontosJogador;
+    private javax.swing.JLabel lbl_pontosMaquina;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarCartas(ArrayList<Cartas> listaCartasJogador){
@@ -202,7 +261,7 @@ public class Jogo extends javax.swing.JFrame {
     public void iniciarJogada(){
          
             Cartas cartaJogador, cartaMaquina;
-            Baralho novo = new Baralho();
+            novo = new Baralho();
             novo.geraBaralho();
             
             novo.distribuiCartas();
@@ -226,12 +285,13 @@ public class Jogo extends javax.swing.JFrame {
             System.out.println("Cartas Maquina");
             novo.mostrarCartasMaquina();
                
-            
+           int posCartaEscolhida = 0; 
            // cartaJogador = new Cartas(); 
+         
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
                     novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
                     novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
-            int posCartaEscolhida = JOptionPane.showOptionDialog(null,
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
                  "Cartas Jogador",
                     JOptionPane.YES_NO_CANCEL_OPTION,
@@ -239,6 +299,7 @@ public class Jogo extends javax.swing.JFrame {
                         null,
                         options,
                         options[2]);
+          
             
             novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
             mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
@@ -269,7 +330,7 @@ public class Jogo extends javax.swing.JFrame {
             
             Maquina maquina = new Maquina();
             
-            Cartas maquinaTurno = maquina.maquinaJogar(vira, vira, novo.cartasMaquina);
+            maquinaTurno = maquina.maquinaJogar(vira, novo.turno.get(0), novo.cartasMaquina);
             
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             
@@ -277,7 +338,7 @@ public class Jogo extends javax.swing.JFrame {
              for(i= 0; i<novo.cartasMaquina.size(); i++){
               
                 if(maquinaTurno.getNumero().equalsIgnoreCase(novo.cartasMaquina.get(i).getNumero()) && maquinaTurno.getNaipe().equalsIgnoreCase(novo.cartasMaquina.get(i).getNaipe())){
-                    novo.addCartasTurno(novo.cartasMaquina.get(i));
+                  //  novo.addCartasTurno(novo.cartasMaquina.get(i));
                     novo.removerCartasMaquina(i);
                 }
             }
@@ -297,6 +358,9 @@ public class Jogo extends javax.swing.JFrame {
             default:
                 break;
         }
+        
+        
+        
                     
             
             
@@ -326,4 +390,98 @@ public class Jogo extends javax.swing.JFrame {
         lbl_cartaMaquinaTurno.setIcon(cartaTurno);
         lbl_cartaMaquinaTurno.setVisible(true); 
     }
+    
+    public void verificar(){
+        
+              rodada++;
+              if(maquinaTurno.getValor() > novo.turno.get(0).getValor()){
+                  rodadaMaquinaPontos++;
+                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.turno.get(0).getValor());
+                  JOptionPane.showMessageDialog(null, "Maquina Ganhou!");
+                  lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
+                  vez = 1;
+              }
+              else if(maquinaTurno.getValor() < novo.turno.get(0).getValor()){
+                  rodadaJogadorPontos++;
+                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.turno.get(0).getValor());
+                  JOptionPane.showMessageDialog(null, "Jogador Ganhou!");
+                  lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
+                  vez = 0;
+              }
+              else{
+                  
+                  rodadaJogadorPontos++;
+                  rodadaMaquinaPontos++;
+                  lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
+                  lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
+
+                  JOptionPane.showMessageDialog(null, "Empate!");
+              }
+              
+          lbl_cartaJogadorTurno.setVisible(false);
+          lbl_cartaMaquinaTurno.setVisible(false);
+          
+        ImageIcon baralho = new ImageIcon(getClass().getResource("/imagens/back-blue.png"));
+        lbl_monte.setIcon(baralho);
+    }   
+    
+    public void tornar(){
+        
+        if(vez==0){
+            int posCartaEscolhida = 0; 
+           // cartaJogador = new Cartas(); 
+           if(rodada==1){
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
+                    novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
+                "Escolha uma carta",
+                 "Cartas Jogador",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[2]);
+           }
+           else if(rodada==2){
+               Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe()};
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
+                "Escolha uma carta",
+                 "Cartas Jogador",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[1]);
+               
+           }
+           else if(rodada==3){
+               Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe()};
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
+                "Escolha uma carta",
+                 "Cartas Jogador",
+                    JOptionPane.YES_NO_CANCEL_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+           }
+            
+            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
+            
+            
+            if(posCartaEscolhida==0){
+               lbl_carta1.setVisible(false);
+            }
+            else if(posCartaEscolhida==1){
+                lbl_carta2.setVisible(false);                
+            }
+            else if(posCartaEscolhida==2){
+                lbl_carta3.setVisible(false);                
+            }
+        }
+    }
+    
 }

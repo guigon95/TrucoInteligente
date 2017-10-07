@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Truco {
     
      private static Cartas vira;
-     Jogo jogo;
+     Jogo1 jogo;
      
      public void truco(){
          
@@ -38,7 +38,7 @@ public class Truco {
             System.out.println("Cartas Jogador");
             novo.mostrarCartasJogador();
             
-            jogo = new Jogo();
+            jogo = new Jogo1();
             jogo.mostrarCartas(novo.cartasJogador);
             
             System.out.println("Cartas Maquina");

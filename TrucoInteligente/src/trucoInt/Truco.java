@@ -16,8 +16,9 @@ import javax.swing.JOptionPane;
 public class Truco {
     
      private static Cartas vira;
+     Jogo jogo;
      
-     public static void main(String[] args){
+     public void truco(){
          
             Cartas cartaJogador, cartaMaquina;
             Baralho novo = new Baralho();
@@ -55,6 +56,10 @@ public class Truco {
                         options[2]);
             
             novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            if(posCartaEscolhida==0){
+                jogo = new Jogo();
+                jogo.mostrarCartas();
+            }
             novo.removerCartasJogador(posCartaEscolhida);//remove carta do jogador
                         
             //cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));

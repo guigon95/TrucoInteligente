@@ -73,37 +73,37 @@ public class Baralho {
         
                 cartas = new Cartas();
         cartas.setNumero("3");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         
         cartas = new Cartas();
         cartas.setNumero("2");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         
         cartas = new Cartas();
         cartas.setNumero("A");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         
         cartas = new Cartas();
         cartas.setNumero("K");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         
         cartas = new Cartas();
         cartas.setNumero("J");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         
         cartas = new Cartas();
         cartas.setNumero("Q");
-        cartas.setNaipe("Sete Copas");
+        cartas.setNaipe("Sete-Copas");
         totalCartas.add(cartas);
         distribuirBaralho.add(cartas);
         

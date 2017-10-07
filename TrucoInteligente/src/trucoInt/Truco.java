@@ -38,6 +38,9 @@ public class Truco {
             System.out.println("Cartas Jogador");
             novo.mostrarCartasJogador();
             
+            jogo = new Jogo();
+            jogo.mostrarCartas(novo.cartasJogador);
+            
             System.out.println("Cartas Maquina");
             novo.mostrarCartasMaquina();
                
@@ -56,10 +59,10 @@ public class Truco {
                         options[2]);
             
             novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
-            if(posCartaEscolhida==0){
-                jogo = new Jogo();
-                jogo.mostrarCartas();
-            }
+            
+            
+                
+            
             novo.removerCartasJogador(posCartaEscolhida);//remove carta do jogador
                         
             //cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));
@@ -74,4 +77,9 @@ public class Truco {
             novo.mostrarCartasTurno();
             
     }    
+     
+     
+     public void mostrarCartasTurno(){
+         
+     }
 }

@@ -238,6 +238,11 @@ public class Baralho {
         cartasJogador.remove(pos);
         
     }
+    
+    public void removerCartasMaquina(int pos){
+        cartasMaquina.remove(pos);
+        
+    }
             
     public void mostrarCartasMaquina(){
         
@@ -298,14 +303,14 @@ public class Baralho {
             if(list.get(i).getNaipe().equalsIgnoreCase("Paus")){
                 list.get(i).setValor(40);
             }
-            else if(list.get(i).getNaipe().equalsIgnoreCase("Sete Copas")){
+            else if(list.get(i).getNaipe().equalsIgnoreCase("Sete-Copas")){
                 list.get(i).setValor(30);
             }
             else if(list.get(i).getNaipe().equalsIgnoreCase("Espadas")){
                 list.get(i).setValor(20);
             }
             else if(list.get(i).getNaipe().equalsIgnoreCase("Ouro")){
-                list.get(i).setValor(20);
+                list.get(i).setValor(10);
             }
 
                 //atribuindo peso dos numeros

@@ -54,6 +54,7 @@ public class Jogo extends javax.swing.JFrame {
         btn_jogar = new javax.swing.JButton();
         lbl_cartaJogadorTurno = new javax.swing.JLabel();
         lbl_cartaMaquinaTurno = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         lbl_fundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,15 +81,15 @@ public class Jogo extends javax.swing.JFrame {
 
         lbl_carta4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_carta4);
-        lbl_carta4.setBounds(250, 30, 80, 120);
+        lbl_carta4.setBounds(150, 40, 80, 120);
 
         lbl_carta5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_carta5);
-        lbl_carta5.setBounds(350, 30, 80, 120);
+        lbl_carta5.setBounds(250, 40, 80, 120);
 
         lbl_carta6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_carta6);
-        lbl_carta6.setBounds(150, 30, 80, 120);
+        lbl_carta6.setBounds(350, 40, 80, 120);
 
         btn_jogar.setText("Jogar");
         btn_jogar.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +98,7 @@ public class Jogo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btn_jogar);
-        btn_jogar.setBounds(500, 390, 73, 23);
+        btn_jogar.setBounds(500, 360, 73, 23);
 
         lbl_cartaJogadorTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_cartaJogadorTurno);
@@ -106,6 +107,10 @@ public class Jogo extends javax.swing.JFrame {
         lbl_cartaMaquinaTurno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/back-blue.png"))); // NOI18N
         getContentPane().add(lbl_cartaMaquinaTurno);
         lbl_cartaMaquinaTurno.setBounds(150, 180, 80, 120);
+
+        jButton1.setText("Tornar");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(500, 400, 65, 23);
 
         lbl_fundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/fundo.jpg"))); // NOI18N
         getContentPane().add(lbl_fundo);
@@ -157,6 +162,7 @@ public class Jogo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_jogar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbl_carta1;
     private javax.swing.JLabel lbl_carta2;
     private javax.swing.JLabel lbl_carta3;
@@ -205,6 +211,7 @@ public class Jogo extends javax.swing.JFrame {
             vira = novo.sortearVira();
             System.out.print(vira.getNumero()+" - ");
             System.out.println(vira.getNaipe());
+            mostrarCartasVira(vira.getNumero(), vira.getNaipe());
             
             novo.atribuirManilhas();
             
@@ -266,12 +273,44 @@ public class Jogo extends javax.swing.JFrame {
             
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             
+             int i;
+             for(i= 0; i<novo.cartasMaquina.size(); i++){
+              
+                if(maquinaTurno.getNumero().equalsIgnoreCase(novo.cartasMaquina.get(i).getNumero()) && maquinaTurno.getNaipe().equalsIgnoreCase(novo.cartasMaquina.get(i).getNaipe())){
+                    novo.addCartasTurno(novo.cartasMaquina.get(i));
+                    novo.removerCartasMaquina(i);
+                }
+            }
             
+             
+        System.out.println("Posicao:"+i);
+        switch (--i) {
+            case 0:
+                lbl_carta4.setVisible(false);
+                break;
+            case 1:
+                lbl_carta5.setVisible(false);
+                break;
+            case 2:
+                lbl_carta6.setVisible(false);
+                break;
+            default:
+                break;
+        }
                     
             
             
     }    
     
+    public void mostrarCartasVira(String numero, String naipe){
+        
+        ImageIcon cartaMonte = new ImageIcon(getClass().getResource("/imagens/"+numero+"-"+naipe+".png"));
+        lbl_monte.setIcon(cartaMonte);
+        lbl_monte.setVisible(true);
+        
+    }
+    
+    //mostra carta do jogador na tela
     public void mostrarCartasTurnoJogador(String numero, String naipe){
         
         ImageIcon cartaTurno = new ImageIcon(getClass().getResource("/imagens/"+numero+"-"+naipe+".png"));
@@ -280,6 +319,7 @@ public class Jogo extends javax.swing.JFrame {
         
     }
     
+    //mostra carta da maquina na tela
     public void mostrarCartasTurnoMaquina(String numero, String naipe){
         
          ImageIcon cartaTurno = new ImageIcon(getClass().getResource("/imagens/"+numero+"-"+naipe+".png"));

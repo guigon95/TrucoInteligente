@@ -74,7 +74,7 @@ public class Truco {
             System.out.println("Cartas Jogador");
             novo.mostrarCartasJogador();
             System.out.println("Cartas Turno");   
-            novo.mostrarCartasTurno();
+            novo.mostrarCartasTurnoJogador();
             
     }    
      

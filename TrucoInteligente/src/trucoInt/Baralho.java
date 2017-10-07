@@ -209,7 +209,7 @@ public class Baralho {
         turno.add(carta);
     }
     
-    public void mostrarCartasTurno(){
+    public void mostrarCartasTurnoJogador(){
         
         for (int i = 0; i < turno.size(); i++) {
            System.out.print(turno.get(i).getNumero()+" - ");       

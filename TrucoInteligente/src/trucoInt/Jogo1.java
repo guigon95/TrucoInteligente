@@ -259,6 +259,7 @@ public class Jogo1 extends javax.swing.JFrame {
     }
     
     public void iniciarJogada(){
+        int aux=0,aux1=0;
          
             Cartas cartaJogador, cartaMaquina;
             novo = new Baralho();
@@ -284,85 +285,22 @@ public class Jogo1 extends javax.swing.JFrame {
             
             System.out.println("Cartas Maquina");
             novo.mostrarCartasMaquina();
-               
-           int posCartaEscolhida = 0; 
-           // cartaJogador = new Cartas(); 
-         
-            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
-                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
-                    novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
-            posCartaEscolhida = JOptionPane.showOptionDialog(null,
-                "Escolha uma carta",
-                 "Cartas Jogador",
-                    JOptionPane.YES_NO_CANCEL_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        options,
-                        options[2]);
-          
             
-            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
-            mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
-            
-            
-            if(posCartaEscolhida==0){
-               lbl_carta1.setVisible(false);
-            }
-            else if(posCartaEscolhida==1){
-                lbl_carta2.setVisible(false);                
-            }
-            else if(posCartaEscolhida==2){
-                lbl_carta3.setVisible(false);                
-            }
-            
-           // novo.removerCartasJogador(posCartaEscolhida);//remove carta do jogador
-                        
-            //cartaJogador.setNumero(JOptionPane.showInputDialog("Digite o numero"));
-            //cartaJogador.setNaipe(JOptionPane.showInputDialog("Digite o naipe"));
-            // JOptionPane.showConfirmDialog(null, "teste", "Vai", 0);
-            //System.out.println("Carta jogador: "+cartaJogador.getNumero());
-            //System.out.println("Carta jogador: "+cartaJogador.getNaipe());
-            
-            System.out.println("Cartas Jogador");
-            novo.mostrarCartasJogador();
-            System.out.println("Cartas Turno Jogador");   
-            novo.mostrarCartasTurnoJogador();
-            
-            Maquina maquina = new Maquina();
-            
-            maquinaTurno = maquina.maquinaJogar(vira, novo.turno.get(0), novo.cartasMaquina);
-            
-            mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
-            
-             int i;
-             for(i= 0; i<novo.cartasMaquina.size(); i++){
-              
-                if(maquinaTurno.getNumero().equalsIgnoreCase(novo.cartasMaquina.get(i).getNumero()) && maquinaTurno.getNaipe().equalsIgnoreCase(novo.cartasMaquina.get(i).getNaipe())){
-                  //  novo.addCartasTurno(novo.cartasMaquina.get(i));
-                    novo.removerCartasMaquina(i);
-                }
-            }
-            
-             
-        System.out.println("Posicao:"+i);
-        switch (--i) {
-            case 0:
-                lbl_carta4.setVisible(false);
-                break;
-            case 1:
-                lbl_carta5.setVisible(false);
-                break;
-            case 2:
-                lbl_carta6.setVisible(false);
-                break;
-            default:
-                break;
-        }
-        
-        
-        
                     
-            
+            while(aux<3){
+                if(vez==0){
+                    tornar();
+                    tornarMaquina();
+                    verificar();
+                    aux++;
+                }else if(vez==1){
+                    tornarMaquina();
+                    tornar();
+                    verificar();
+                    aux++;
+            }
+           }
+           
             
     }    
     
@@ -427,7 +365,7 @@ public class Jogo1 extends javax.swing.JFrame {
     
     public void tornar(){
         
-        if(vez==0){
+       // if(vez==0){
             int posCartaEscolhida = 0; 
            // cartaJogador = new Cartas(); 
            if(rodada==1){
@@ -481,7 +419,42 @@ public class Jogo1 extends javax.swing.JFrame {
             else if(posCartaEscolhida==2){
                 lbl_carta3.setVisible(false);                
             }
+        //}
+    }
+    
+    public void tornarMaquina(){
+        
+            Maquina maquina = new Maquina();
+            
+            maquinaTurno = maquina.maquinaJogar(vira, novo.turno.get(0), novo.cartasMaquina);
+            
+            mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
+            
+             int i;
+             for(i= 0; i<novo.cartasMaquina.size(); i++){
+              
+                if(maquinaTurno.getNumero().equalsIgnoreCase(novo.cartasMaquina.get(i).getNumero()) && maquinaTurno.getNaipe().equalsIgnoreCase(novo.cartasMaquina.get(i).getNaipe())){
+                  //  novo.addCartasTurno(novo.cartasMaquina.get(i));
+                    novo.removerCartasMaquina(i);
+                }
+            }
+            
+             
+        System.out.println("Posicao:"+i);
+        switch (--i) {
+            case 0:
+                lbl_carta4.setVisible(false);
+                break;
+            case 1:
+                lbl_carta5.setVisible(false);
+                break;
+            case 2:
+                lbl_carta6.setVisible(false);
+                break;
+            default:
+                break;
         }
+    
     }
     
 }

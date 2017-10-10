@@ -260,9 +260,8 @@ public class Jogo1 extends javax.swing.JFrame {
     }
     
     public void iniciarJogada(){
-        int aux=0,aux1=0;
-         
-            Cartas cartaJogador, cartaMaquina;
+       
+ 
             novo = new Baralho();
             novo.geraBaralho();
             
@@ -288,17 +287,17 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.mostrarCartasMaquina();
             
                     
-            while(aux<3 && rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2){
+            while(rodada<3 && rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2){
                 if(vez==0){
                     tornar();
                     tornarMaquina();
                     verificar();
-                    aux++;
+                    rodada++;
                 }else if(vez==1){
                     tornarMaquina();
                     tornar();
                     verificar();
-                    aux++;
+                    rodada++;
                 }
            }
            
@@ -332,17 +331,16 @@ public class Jogo1 extends javax.swing.JFrame {
     
     public void verificar(){
         
-              rodada++;
-              if(maquinaTurno.getValor() > novo.turno.get(0).getValor()){
+              if(maquinaTurno.getValor() > novo.getTurno().getValor()){
                   rodadaMaquinaPontos++;
-                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.turno.get(0).getValor());
+                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
                   JOptionPane.showMessageDialog(null, "Maquina Ganhou!");
                   lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
                   vez = 1;
               }
-              else if(maquinaTurno.getValor() < novo.turno.get(0).getValor()){
+              else if(maquinaTurno.getValor() < novo.getTurno().getValor()){
                   rodadaJogadorPontos++;
-                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.turno.get(0).getValor());
+                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
                   JOptionPane.showMessageDialog(null, "Jogador Ganhou!");
                   lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
                   vez = 0;
@@ -367,7 +365,7 @@ public class Jogo1 extends javax.swing.JFrame {
     public void tornar(){
         
        // if(vez==0){
-            int posCartaEscolhida = 0; 
+            int posCartaEscolhida; 
            // cartaJogador = new Cartas(); 
            if(rodada==1){
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
@@ -393,10 +391,8 @@ public class Jogo1 extends javax.swing.JFrame {
                         null,
                         options,
                         options[1]);
-            
-               
            }
-           else if(rodada==3){
+           else{
                Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe()};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
@@ -408,11 +404,11 @@ public class Jogo1 extends javax.swing.JFrame {
                         options[0]);
            }
             
-            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
             mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
             novo.removerCartasJogador(posCartaEscolhida);
            
-            if(rodada == 1){
+           
             if(posCartaEscolhida==0){
                lbl_carta1.setVisible(false);
             }
@@ -423,10 +419,7 @@ public class Jogo1 extends javax.swing.JFrame {
             else if(posCartaEscolhida==2){
                 lbl_carta3.setVisible(false);                
             }
-            }
-            else if(rodada == 2){
-                
-            }
+            
         //}
     }
     
@@ -434,7 +427,7 @@ public class Jogo1 extends javax.swing.JFrame {
         
             Maquina maquina = new Maquina();
             
-            maquinaTurno = maquina.maquinaJogar(vira, novo.turno.get(0), novo.cartasMaquina);
+            maquinaTurno = maquina.maquinaJogar(vira, novo.getTurno(), novo.cartasMaquina);
             
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             

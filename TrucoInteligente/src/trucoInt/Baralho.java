@@ -14,6 +14,20 @@ import java.util.Collections;
  * @author kira
  */
 public class Baralho {
+
+    /**
+     * @return the turno
+     */
+    public Cartas getTurno() {
+        return turno;
+    }
+
+    /**
+     * @param turno the turno to set
+     */
+    public void setTurno(Cartas turno) {
+        this.turno = turno;
+    }
     
     int i = 0;
      //cria vetor do baralho
@@ -22,7 +36,7 @@ public class Baralho {
     ArrayList<Cartas> cartasJogador = new ArrayList<Cartas>();
     ArrayList<Cartas> cartasMaquina = new ArrayList<Cartas>();
     ArrayList<Cartas> manilhas = new ArrayList<Cartas>();
-    ArrayList<Cartas> turno = new ArrayList<Cartas>();
+    private Cartas turno;
     
     private Cartas cartas;
     private Cartas vira;
@@ -205,16 +219,15 @@ public class Baralho {
         }
     }
     
-    public void addCartasTurno(Cartas carta){
-        turno.add(carta);
-    }
+    
+    
     
     public void mostrarCartasTurnoJogador(){
         
-        for (int i = 0; i < turno.size(); i++) {
-           System.out.print(turno.get(i).getNumero()+" - ");       
-           System.out.println(turno.get(i).getNaipe()+" Valor: "+turno.get(i).getValor());  
-        } 
+      
+           System.out.print(getTurno().getNumero()+" - ");       
+           System.out.println(getTurno().getNaipe()+" Valor: "+getTurno().getValor());  
+        
     }
     
     public Cartas sortearVira(){

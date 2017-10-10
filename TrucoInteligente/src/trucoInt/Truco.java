@@ -58,7 +58,7 @@ public class Truco {
                         options,
                         options[2]);
             
-            novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+            novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
             
             
                 

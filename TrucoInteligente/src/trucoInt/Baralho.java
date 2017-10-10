@@ -36,6 +36,9 @@ public class Baralho {
     ArrayList<Cartas> cartasJogador = new ArrayList<Cartas>();
     ArrayList<Cartas> cartasMaquina = new ArrayList<Cartas>();
     ArrayList<Cartas> manilhas = new ArrayList<Cartas>();
+    
+    ArrayList<Cartas> cartasJogadorSemExclusao = new ArrayList<Cartas>();
+    
     private Cartas turno;
     
     private Cartas cartas;
@@ -209,6 +212,7 @@ public class Baralho {
         //Distribuindo cartas para jogador
         for (int i = 0; i < 3; i++) {
            cartasJogador.add(distribuirBaralho.get(i));
+           cartasJogadorSemExclusao.add(distribuirBaralho.get(i));
            distribuirBaralho.remove(i);   
         }
 

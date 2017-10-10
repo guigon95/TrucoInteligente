@@ -21,7 +21,7 @@ public class Jogo1 extends javax.swing.JFrame {
     Cartas maquinaTurno;
     Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
-    ArrayList<Cartas> jogadorCartasComExclusao = new ArrayList<Cartas>();
+    
     
     /**
      * Creates new form Jogo
@@ -267,6 +267,8 @@ public class Jogo1 extends javax.swing.JFrame {
             
             novo.distribuiCartas();
             
+            
+            
             System.out.println("Vira:");
             vira = novo.sortearVira();
             System.out.print(vira.getNumero()+" - ");
@@ -364,10 +366,8 @@ public class Jogo1 extends javax.swing.JFrame {
     
     public void tornar(){
         
-       // if(vez==0){
-            int posCartaEscolhida; 
-           // cartaJogador = new Cartas(); 
-           if(rodada==1){
+          int posCartaEscolhida; 
+          if(rodada==1){
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
                     novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
                     novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
@@ -381,7 +381,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         options[2]);
            }
            else if(rodada==2){
-               Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
                     novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe()};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
@@ -393,7 +393,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         options[1]);
            }
            else{
-               Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe()};
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe()};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
                  "Cartas Jogador",
@@ -403,24 +403,25 @@ public class Jogo1 extends javax.swing.JFrame {
                         options,
                         options[0]);
            }
+           System.out.println("carta escolhida botao:" +posCartaEscolhida);
             
-            novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
-            mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
-            novo.removerCartasJogador(posCartaEscolhida);
-           
-           
-            if(posCartaEscolhida==0){
+           novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+           mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
+            
+                     
+           if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(0).getValor()){
                lbl_carta1.setVisible(false);
-            }
-            else if(posCartaEscolhida==1){;
-                lbl_carta2.setVisible(false);                
-            }
-            else if(posCartaEscolhida==2){
-                lbl_carta3.setVisible(false);                
-            }
+           }
+           else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(1).getValor()){;
+               lbl_carta2.setVisible(false);                
+           }
+           else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(2).getValor()){
+               lbl_carta3.setVisible(false);                
+           }
             
-        //}
-    }
+           novo.removerCartasJogador(posCartaEscolhida);
+           
+   }
     
     public void tornarMaquina(){
         
@@ -440,7 +441,7 @@ public class Jogo1 extends javax.swing.JFrame {
             }
             
              
-        System.out.println("Posicao:"+i);
+        //System.out.println("Posicao:"+i);
         switch (--i) {
             case 0:
                 lbl_carta4.setVisible(false);

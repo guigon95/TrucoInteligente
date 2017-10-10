@@ -412,8 +412,7 @@ public class Jogo1 extends javax.swing.JFrame {
             if(posCartaEscolhida==0){
                lbl_carta1.setVisible(false);
             }
-            else if(posCartaEscolhida==1){
-                JOptionPane.showMessageDialog(null, "1");
+            else if(posCartaEscolhida==1){;
                 lbl_carta2.setVisible(false);                
             }
             else if(posCartaEscolhida==2){

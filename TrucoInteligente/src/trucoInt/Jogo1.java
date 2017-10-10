@@ -298,7 +298,7 @@ public class Jogo1 extends javax.swing.JFrame {
                     tornar();
                     verificar();
                     aux++;
-            }
+                }
            }
            
             
@@ -408,12 +408,13 @@ public class Jogo1 extends javax.swing.JFrame {
             
             novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
             mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
-            
+            novo.removerCartasJogador(posCartaEscolhida);
             
             if(posCartaEscolhida==0){
                lbl_carta1.setVisible(false);
             }
             else if(posCartaEscolhida==1){
+                JOptionPane.showMessageDialog(null, "1");
                 lbl_carta2.setVisible(false);                
             }
             else if(posCartaEscolhida==2){

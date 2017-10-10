@@ -301,33 +301,33 @@ public class Baralho {
 
             //atribuindo peso dos naipes
             if(list.get(i).getNaipe().equalsIgnoreCase("Paus")){
-                list.get(i).setValor(70);
+                list.get(i).setValor(4);
             }
             else if(list.get(i).getNaipe().equalsIgnoreCase("Sete-Copas")){
-                list.get(i).setValor(50);
+                list.get(i).setValor(3);
             }
             else if(list.get(i).getNaipe().equalsIgnoreCase("Espadas")){
-                list.get(i).setValor(30);
+                list.get(i).setValor(2);
             }
             else if(list.get(i).getNaipe().equalsIgnoreCase("Ouro")){
-                list.get(i).setValor(10);
+                list.get(i).setValor(1);
             }
 
                 //atribuindo peso dos numeros
                 if(list.get(i).getNumero().equals("3")){
-                    list.get(i).setValor(list.get(i).getValor() + 110);
+                    list.get(i).setValor(list.get(i).getValor() + 35);
                 }
                 else if(list.get(i).getNumero().equals("2")){
-                    list.get(i).setValor(list.get(i).getValor() + 90);                
+                    list.get(i).setValor(list.get(i).getValor() + 30);                
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("A")){
-                    list.get(i).setValor(list.get(i).getValor() + 70);            
+                    list.get(i).setValor(list.get(i).getValor() + 25);            
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("K")){
-                    list.get(i).setValor(list.get(i).getValor() + 50); 
+                    list.get(i).setValor(list.get(i).getValor() + 20); 
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("J")){
-                    list.get(i).setValor(list.get(i).getValor() + 30); 
+                    list.get(i).setValor(list.get(i).getValor() + 15); 
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("Q")){
                     list.get(i).setValor(list.get(i).getValor() + 10);     

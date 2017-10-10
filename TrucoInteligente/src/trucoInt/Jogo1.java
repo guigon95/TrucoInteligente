@@ -21,6 +21,7 @@ public class Jogo1 extends javax.swing.JFrame {
     Cartas maquinaTurno;
     Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
+    ArrayList<Cartas> jogadorCartasComExclusao = new ArrayList<Cartas>();
     
     /**
      * Creates new form Jogo
@@ -287,7 +288,7 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.mostrarCartasMaquina();
             
                     
-            while(aux<3){
+            while(aux<3 && rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2){
                 if(vez==0){
                     tornar();
                     tornarMaquina();
@@ -392,6 +393,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         null,
                         options,
                         options[1]);
+            
                
            }
            else if(rodada==3){
@@ -409,7 +411,8 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.addCartasTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
             mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
             novo.removerCartasJogador(posCartaEscolhida);
-            
+           
+            if(rodada == 1){
             if(posCartaEscolhida==0){
                lbl_carta1.setVisible(false);
             }
@@ -419,6 +422,10 @@ public class Jogo1 extends javax.swing.JFrame {
             }
             else if(posCartaEscolhida==2){
                 lbl_carta3.setVisible(false);                
+            }
+            }
+            else if(rodada == 2){
+                
             }
         //}
     }

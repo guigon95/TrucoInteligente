@@ -18,6 +18,7 @@ public class Jogo1 extends javax.swing.JFrame {
     private static Cartas vira;
     Truco truco;
     int rodada = 1, rodadaMaquinaPontos = 0, rodadaJogadorPontos = 0, vez = 0;
+    int maoJogadorPontos=0, maoMaquinaPontos =0;
     Cartas maquinaTurno;
     Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
@@ -63,6 +64,10 @@ public class Jogo1 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         lbl_pontosJogador = new javax.swing.JLabel();
         lbl_pontosMaquina = new javax.swing.JLabel();
+        lbl_maquina = new javax.swing.JLabel();
+        lbl_pontosMaquinaTotal = new javax.swing.JLabel();
+        lbl_jogador = new javax.swing.JLabel();
+        lbl_pontosJogadorTotal = new javax.swing.JLabel();
         btn_tornar = new javax.swing.JButton();
         lbl_fundo = new javax.swing.JLabel();
 
@@ -127,24 +132,44 @@ public class Jogo1 extends javax.swing.JFrame {
         btn_verificar.setBounds(490, 380, 80, 23);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setText("Pontos:");
+        jLabel1.setText("Pontos Mão:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 390, 50, 14);
+        jLabel1.setBounds(10, 390, 70, 14);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setText("Pontos:");
+        jLabel2.setText("Pontos Mão:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(480, 40, 50, 14);
+        jLabel2.setBounds(480, 40, 69, 14);
 
         lbl_pontosJogador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_pontosJogador.setText("0");
         getContentPane().add(lbl_pontosJogador);
-        lbl_pontosJogador.setBounds(60, 390, 7, 14);
+        lbl_pontosJogador.setBounds(90, 390, 20, 14);
 
         lbl_pontosMaquina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_pontosMaquina.setText("0");
         getContentPane().add(lbl_pontosMaquina);
-        lbl_pontosMaquina.setBounds(530, 40, 7, 14);
+        lbl_pontosMaquina.setBounds(560, 40, 20, 14);
+
+        lbl_maquina.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_maquina.setText("Máquina");
+        getContentPane().add(lbl_maquina);
+        lbl_maquina.setBounds(480, 20, 60, 14);
+
+        lbl_pontosMaquinaTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_pontosMaquinaTotal.setText("0");
+        getContentPane().add(lbl_pontosMaquinaTotal);
+        lbl_pontosMaquinaTotal.setBounds(540, 20, 7, 14);
+
+        lbl_jogador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_jogador.setText("Jogador");
+        getContentPane().add(lbl_jogador);
+        lbl_jogador.setBounds(10, 370, 50, 14);
+
+        lbl_pontosJogadorTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbl_pontosJogadorTotal.setText("0");
+        getContentPane().add(lbl_pontosJogadorTotal);
+        lbl_pontosJogadorTotal.setBounds(70, 370, 7, 14);
 
         btn_tornar.setText("Tornar");
         btn_tornar.addActionListener(new java.awt.event.ActionListener() {
@@ -170,7 +195,7 @@ public class Jogo1 extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_jogarActionPerformed
 
     private void btn_verificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_verificarActionPerformed
-        verificar();
+        verificarRodada();
     }//GEN-LAST:event_btn_verificarActionPerformed
 
     private void btn_tornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tornarActionPerformed
@@ -230,9 +255,13 @@ public class Jogo1 extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_cartaJogadorTurno;
     private javax.swing.JLabel lbl_cartaMaquinaTurno;
     private javax.swing.JLabel lbl_fundo;
+    private javax.swing.JLabel lbl_jogador;
+    private javax.swing.JLabel lbl_maquina;
     private javax.swing.JLabel lbl_monte;
     private javax.swing.JLabel lbl_pontosJogador;
+    private javax.swing.JLabel lbl_pontosJogadorTotal;
     private javax.swing.JLabel lbl_pontosMaquina;
+    private javax.swing.JLabel lbl_pontosMaquinaTotal;
     // End of variables declaration//GEN-END:variables
 
     public void mostrarCartas(ArrayList<Cartas> listaCartasJogador){
@@ -259,15 +288,13 @@ public class Jogo1 extends javax.swing.JFrame {
         
     }
     
-    public void iniciarJogada(){
-       
- 
+   public void iniciarJogada(){
+       while(maoJogadorPontos <= 12 || maoMaquinaPontos <=12){
+            
             novo = new Baralho();
             novo.geraBaralho();
             
             novo.distribuiCartas();
-            
-            
             
             System.out.println("Vira:");
             vira = novo.sortearVira();
@@ -289,21 +316,23 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.mostrarCartasMaquina();
             
                     
-            while(rodada<3 && rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2){
+            while(rodada<3 && (rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2)){
                 if(vez==0){
                     tornar();
                     tornarMaquina();
-                    verificar();
+                    verificarRodada();
                     rodada++;
                 }else if(vez==1){
                     tornarMaquina();
                     tornar();
-                    verificar();
+                    verificarRodada();
                     rodada++;
                 }
            }
-           
             
+           verificarMao();
+           
+      }      
     }    
     
     public void mostrarCartasVira(String numero, String naipe){
@@ -331,18 +360,18 @@ public class Jogo1 extends javax.swing.JFrame {
         lbl_cartaMaquinaTurno.setVisible(true); 
     }
     
-    public void verificar(){
+    public void verificarRodada(){
         
               if(maquinaTurno.getValor() > novo.getTurno().getValor()){
                   rodadaMaquinaPontos++;
-                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
+                  //JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
                   JOptionPane.showMessageDialog(null, "Maquina Ganhou!");
                   lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
                   vez = 1;
               }
               else if(maquinaTurno.getValor() < novo.getTurno().getValor()){
                   rodadaJogadorPontos++;
-                  JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
+                  //JOptionPane.showMessageDialog(null,maquinaTurno.getValor()+" ou "+novo.getTurno().getValor());
                   JOptionPane.showMessageDialog(null, "Jogador Ganhou!");
                   lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
                   vez = 0;
@@ -363,6 +392,25 @@ public class Jogo1 extends javax.swing.JFrame {
         ImageIcon baralho = new ImageIcon(getClass().getResource("/imagens/back-blue.png"));
         lbl_monte.setIcon(baralho);
     }   
+    
+    public void verificarMao(){
+        
+        if(rodadaJogadorPontos == 2){
+            JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
+            maoJogadorPontos += 1; 
+            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+        }else if(rodadaMaquinaPontos == 2){
+            JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
+            maoMaquinaPontos += 1; 
+            lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
+        }
+        
+        rodada = 0;
+        rodadaJogadorPontos = 0;
+        rodadaMaquinaPontos = 0;
+        lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
+        lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
+    }
     
     public void tornar(){
         
@@ -403,8 +451,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         options,
                         options[0]);
            }
-           System.out.println("carta escolhida botao:" +posCartaEscolhida);
-            
+           
            novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
            mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
             
@@ -440,7 +487,6 @@ public class Jogo1 extends javax.swing.JFrame {
                 }
             }
             
-             
         //System.out.println("Posicao:"+i);
         switch (--i) {
             case 0:

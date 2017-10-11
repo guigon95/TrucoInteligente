@@ -314,40 +314,27 @@ public class Baralho {
     
     public void atribuirPesos(ArrayList<Cartas> list){
         
-        for(int i = 0; i<list.size(); i++){
-
-            //atribuindo peso dos naipes
-            if(list.get(i).getNaipe().equalsIgnoreCase("Paus")){
-                list.get(i).setValor(4);
-            }
-            else if(list.get(i).getNaipe().equalsIgnoreCase("Sete-Copas")){
-                list.get(i).setValor(3);
-            }
-            else if(list.get(i).getNaipe().equalsIgnoreCase("Espadas")){
-                list.get(i).setValor(2);
-            }
-            else if(list.get(i).getNaipe().equalsIgnoreCase("Ouro")){
-                list.get(i).setValor(1);
-            }
+         for(int i = 0; i<list.size(); i++){
+          
 
                 //atribuindo peso dos numeros
                 if(list.get(i).getNumero().equals("3")){
-                    list.get(i).setValor(list.get(i).getValor() + 35);
+                    list.get(i).setValor(35);
                 }
                 else if(list.get(i).getNumero().equals("2")){
-                    list.get(i).setValor(list.get(i).getValor() + 30);                
+                    list.get(i).setValor(30);                
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("A")){
-                    list.get(i).setValor(list.get(i).getValor() + 25);            
+                    list.get(i).setValor(25);            
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("K")){
-                    list.get(i).setValor(list.get(i).getValor() + 20); 
+                    list.get(i).setValor(20); 
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("J")){
-                    list.get(i).setValor(list.get(i).getValor() + 15); 
+                    list.get(i).setValor(15); 
                 }
                 else if(list.get(i).getNumero().equalsIgnoreCase("Q")){
-                    list.get(i).setValor(list.get(i).getValor() + 10);     
+                    list.get(i).setValor(10);     
                 }
                 
                //atribuindo peso das manilhas
@@ -355,6 +342,20 @@ public class Baralho {
                     if(list.get(i).getNumero().equals(manilhas.get(j).getNumero()) &&
                             list.get(i).getNaipe().equals(manilhas.get(j).getNaipe())){
                         list.get(i).setValor(list.get(i).getValor() + 150);
+                                             
+                        //atribuindo peso dos naipes
+                        if(list.get(i).getNaipe().equalsIgnoreCase("Paus")){
+                            list.get(i).setValor(list.get(i).getValor() + 4);
+                        }
+                        else if(list.get(i).getNaipe().equalsIgnoreCase("Sete-Copas")){
+                            list.get(i).setValor(list.get(i).getValor() + 3);
+                        }
+                        else if(list.get(i).getNaipe().equalsIgnoreCase("Espadas")){
+                            list.get(i).setValor(list.get(i).getValor() + 2);
+                        }
+                        else if(list.get(i).getNaipe().equalsIgnoreCase("Ouro")){
+                            list.get(i).setValor(list.get(i).getValor() + 1);
+                        }
                     }
                 }
         }

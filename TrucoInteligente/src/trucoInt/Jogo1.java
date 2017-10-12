@@ -486,7 +486,7 @@ public class Jogo1 extends javax.swing.JFrame {
         
             Maquina maquina = new Maquina();
             
-            maquinaTurno = maquina.maquinaJogar(vira, novo.getTurno(), novo.cartasMaquina);
+            maquinaTurno = maquina.maquinaJogarMaior(vira, novo.getTurno(), novo.cartasMaquina);
             
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             

@@ -389,23 +389,33 @@ public class Jogo1 extends javax.swing.JFrame {
           lbl_cartaJogadorTurno.setVisible(false);
           lbl_cartaMaquinaTurno.setVisible(false);
           
-        ImageIcon baralho = new ImageIcon(getClass().getResource("/imagens/back-blue.png"));
-        lbl_monte.setIcon(baralho);
+        //ImageIcon baralho = new ImageIcon(getClass().getResource("/imagens/back-blue.png"));
+        //lbl_monte.setIcon(baralho);
     }   
     
     public void verificarMao(){
         
-        if(rodadaJogadorPontos == 2){
+        if(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0){
             JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
             maoJogadorPontos += 1; 
             lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
-        }else if(rodadaMaquinaPontos == 2){
+        }else if(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0){
             JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
             maoMaquinaPontos += 1; 
             lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
         }
+        else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada == 3){
+            JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
+            maoJogadorPontos += 1; 
+            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+       }
+        else if(rodadaMaquinaPontos > rodadaJogadorPontos && rodada == 3){
+            JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
+            maoMaquinaPontos += 1; 
+            lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));            
+        }
         
-        rodada = 0;
+        rodada = 1;
         rodadaJogadorPontos = 0;
         rodadaMaquinaPontos = 0;
         lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));

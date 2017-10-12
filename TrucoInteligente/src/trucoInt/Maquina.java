@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Maquina {
     
-    public Cartas maquinaJogar(Cartas vira, Cartas turno, ArrayList<Cartas> cartasMaquina){
+    public Cartas maquinaJogarMaior(Cartas vira, Cartas turno, ArrayList<Cartas> cartasMaquina){
         
           Cartas cartaTurno;
           int posMaior = 0;
@@ -28,8 +28,13 @@ public class Maquina {
           }
           
           return cartasMaquina.get(posMaior);
+     
+    }
+    
+    
+    public Cartas maquinaJogarAleatorio(Cartas vira, Cartas turno, ArrayList<Cartas> cartasMaquina){
         
-        
+        return cartasMaquina.get(0);
         
     }
     

@@ -159,7 +159,7 @@ public class Jogo1 extends javax.swing.JFrame {
         lbl_pontosMaquinaTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_pontosMaquinaTotal.setText("0");
         getContentPane().add(lbl_pontosMaquinaTotal);
-        lbl_pontosMaquinaTotal.setBounds(540, 20, 7, 14);
+        lbl_pontosMaquinaTotal.setBounds(540, 20, 20, 14);
 
         lbl_jogador.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_jogador.setText("Jogador");
@@ -169,7 +169,7 @@ public class Jogo1 extends javax.swing.JFrame {
         lbl_pontosJogadorTotal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbl_pontosJogadorTotal.setText("0");
         getContentPane().add(lbl_pontosJogadorTotal);
-        lbl_pontosJogadorTotal.setBounds(70, 370, 7, 14);
+        lbl_pontosJogadorTotal.setBounds(70, 370, 20, 14);
 
         btn_tornar.setText("Tornar");
         btn_tornar.addActionListener(new java.awt.event.ActionListener() {
@@ -316,7 +316,9 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.mostrarCartasMaquina();
             
                     
-            while(rodada<3 && (rodadaJogadorPontos < 2 || rodadaMaquinaPontos < 2)){
+            while(rodada<=3 && 
+                    !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
+                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0)){
                 if(vez==0){
                     tornar();
                     tornarMaquina();
@@ -404,12 +406,12 @@ public class Jogo1 extends javax.swing.JFrame {
             maoMaquinaPontos += 1; 
             lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
         }
-        else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada == 3){
+        else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada > 3){
             JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
             maoJogadorPontos += 1; 
             lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
        }
-        else if(rodadaMaquinaPontos > rodadaJogadorPontos && rodada == 3){
+        else if(rodadaMaquinaPontos > rodadaJogadorPontos && rodada > 3){
             JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
             maoMaquinaPontos += 1; 
             lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));            

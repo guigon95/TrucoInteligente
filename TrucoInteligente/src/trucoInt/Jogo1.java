@@ -22,7 +22,7 @@ public class Jogo1 extends javax.swing.JFrame {
     Cartas maquinaTurno;
     Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
-    
+    int metodo=0;
     
     /**
      * Creates new form Jogo
@@ -188,9 +188,16 @@ public class Jogo1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_jogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jogarActionPerformed
-     
-       //rodada = 0;
-       iniciarJogada();
+       Object[] options = {"Jogar Sempre Maior","Jogar Aleatório"};
+            metodo = JOptionPane.showOptionDialog(null,
+                "Escolha um metodo de jogada da Maquina",
+                 "",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[1]);
+       
+        
+        iniciarJogada();
         
     }//GEN-LAST:event_btn_jogarActionPerformed
 
@@ -463,7 +470,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         options,
                         options[0]);
            }
-           
+          
            novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
            mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
             
@@ -486,7 +493,10 @@ public class Jogo1 extends javax.swing.JFrame {
         
             Maquina maquina = new Maquina();
             
-            maquinaTurno = maquina.maquinaJogarMaior(vira, novo.getTurno(), novo.cartasMaquina);
+            if(metodo==0)
+                maquinaTurno = maquina.maquinaJogarMaior(vira, novo.cartasMaquina);
+            else if(metodo==1)
+                maquinaTurno = maquina.maquinaJogarAleatorio(novo.cartasMaquina);
             
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             
@@ -515,5 +525,7 @@ public class Jogo1 extends javax.swing.JFrame {
         }
     
     }
+    
+    public void chamarTruco(){}
     
 }

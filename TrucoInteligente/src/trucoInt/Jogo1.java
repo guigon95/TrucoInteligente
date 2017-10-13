@@ -23,6 +23,7 @@ public class Jogo1 extends javax.swing.JFrame {
     Baralho novo;
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
     int metodo=0;
+    int trucoAceita=0;
     
     /**
      * Creates new form Jogo
@@ -188,13 +189,13 @@ public class Jogo1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_jogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_jogarActionPerformed
-       Object[] options = {"Jogar Sempre Maior","Jogar Aleatório"};
+       Object[] options = {"Jogar Sempre Maior","Jogar Aleatório","Jogar Maior/Menor"};
             metodo = JOptionPane.showOptionDialog(null,
                 "Escolha um metodo de jogada da Maquina",
                  "",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                         null,
                         options,
-                        options[1]);
+                        options[2]);
        
         
         iniciarJogada();
@@ -325,7 +326,9 @@ public class Jogo1 extends javax.swing.JFrame {
                     
             while(rodada<=3 && 
                     !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
-                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0)){
+                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0) &&
+                    !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1) &&
+                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1)){
                 if(vez==0){
                     tornar();
                     tornarMaquina();
@@ -397,47 +400,109 @@ public class Jogo1 extends javax.swing.JFrame {
               
           lbl_cartaJogadorTurno.setVisible(false);
           lbl_cartaMaquinaTurno.setVisible(false);
-          
-        //ImageIcon baralho = new ImageIcon(getClass().getResource("/imagens/back-blue.png"));
-        //lbl_monte.setIcon(baralho);
+        
     }   
     
     public void verificarMao(){
         
         if(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0){
             JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
-            maoJogadorPontos += 1; 
-            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            //pontos maquina aceitou truco
+            if(trucoAceita>0){
+                maoJogadorPontos+=trucoAceita; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }
         }else if(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0){
             JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
-            maoMaquinaPontos += 1; 
-            lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
-        }
-        else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada > 3){
+            if(trucoAceita>0){
+                maoMaquinaPontos+=trucoAceita; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }
+        }else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada > 3){
             JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
-            maoJogadorPontos += 1; 
-            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
-       }
-        else if(rodadaMaquinaPontos > rodadaJogadorPontos && rodada > 3){
+            //pontos maquina aceitou truco
+            if(trucoAceita>0){
+                maoJogadorPontos+=trucoAceita; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }
+       }else if(rodadaMaquinaPontos > rodadaJogadorPontos && rodada > 3){
             JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
-            maoMaquinaPontos += 1; 
-            lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));            
+            if(trucoAceita>0){
+                maoMaquinaPontos+=trucoAceita; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }            
+        //empate
+        }else if(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1){ //n consigo testar essa merda pq n da empate kkkk
+            JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
+            if(trucoAceita>0){
+                maoJogadorPontos+=trucoAceita; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }
+       }else if(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1){  //n consigo testar essa merda
+            JOptionPane.showMessageDialog(null, "Máquina Ganhou a Mão!");
+            if(trucoAceita>0){
+                maoMaquinaPontos+=trucoAceita; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
+            }else{
+                maoJogadorPontos++; 
+                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            }           
         }
         
         rodada = 1;
+        trucoAceita=0;
         rodadaJogadorPontos = 0;
         rodadaMaquinaPontos = 0;
         lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
         lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
     }
     
-    public void tornar(){
+public void tornar(){
         
-          int posCartaEscolhida; 
-          if(rodada==1){
+           int posCartaEscolhida; 
+           if(rodada==1 && trucoAceita ==0){
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
-                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
-                    novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
+            novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
+            novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe(),"TRUCO!!"};
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
+            "Escolha uma carta",
+            "Cartas Jogador",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[3]);
+           }else if(rodada==1 && trucoAceita>0){
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+            novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),
+            novo.cartasJogador.get(2).getNumero()+" "+novo.cartasJogador.get(2).getNaipe()};
+            posCartaEscolhida = JOptionPane.showOptionDialog(null,
+            "Escolha uma carta",
+            "Cartas Jogador",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[2]);
+           }
+           else if(rodada==2 && trucoAceita ==0){
+            Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
+                    novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe(),"TRUCO!!"};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
                  "Cartas Jogador",
@@ -447,7 +512,7 @@ public class Jogo1 extends javax.swing.JFrame {
                         options,
                         options[2]);
            }
-           else if(rodada==2){
+           else if(rodada==2 && trucoAceita > 0){
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe(),
                     novo.cartasJogador.get(1).getNumero()+" "+novo.cartasJogador.get(1).getNaipe()};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
@@ -458,8 +523,8 @@ public class Jogo1 extends javax.swing.JFrame {
                         null,
                         options,
                         options[1]);
-           }
-           else{
+           }                            
+           else {//if(rodada==3 && trucoAceita ==0){
             Object[] options = {novo.cartasJogador.get(0).getNumero()+" "+novo.cartasJogador.get(0).getNaipe()};
             posCartaEscolhida = JOptionPane.showOptionDialog(null,
                 "Escolha uma carta",
@@ -470,22 +535,25 @@ public class Jogo1 extends javax.swing.JFrame {
                         options,
                         options[0]);
            }
-          
-           novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
-           mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
             
-                     
-           if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(0).getValor()){
-               lbl_carta1.setVisible(false);
-           }
-           else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(1).getValor()){;
-               lbl_carta2.setVisible(false);                
-           }
-           else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(2).getValor()){
-               lbl_carta3.setVisible(false);                
-           }
+            if(posCartaEscolhida > novo.cartasJogador.size()-1){
+                chamarTrucoJogador();
+            }else{
+                novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
+                mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
+
+                if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(0).getValor()){
+                    lbl_carta1.setVisible(false);
+                }
+                else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(1).getValor()){;
+                    lbl_carta2.setVisible(false);                
+                }
+                else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(2).getValor()){
+                    lbl_carta3.setVisible(false);                
+                }
             
-           novo.removerCartasJogador(posCartaEscolhida);
+                novo.removerCartasJogador(posCartaEscolhida);
+            }
            
    }
     
@@ -493,23 +561,23 @@ public class Jogo1 extends javax.swing.JFrame {
         
             Maquina maquina = new Maquina();
             
-            if(metodo==0)
+            if(metodo==0 || (metodo==2 && vez==1))
                 maquinaTurno = maquina.maquinaJogarMaior(vira, novo.cartasMaquina);
             else if(metodo==1)
                 maquinaTurno = maquina.maquinaJogarAleatorio(novo.cartasMaquina);
-            
+            else if(metodo==2 && vez==0)
+                maquinaTurno = maquina.maquinaJogarMaiorMenor(vira, novo.getTurno(), novo.cartasMaquina);
+
             mostrarCartasTurnoMaquina(maquinaTurno.getNumero(), maquinaTurno.getNaipe());
             
              int i;
              for(i= 0; i<novo.cartasMaquina.size(); i++){
               
                 if(maquinaTurno.getNumero().equalsIgnoreCase(novo.cartasMaquina.get(i).getNumero()) && maquinaTurno.getNaipe().equalsIgnoreCase(novo.cartasMaquina.get(i).getNaipe())){
-                  //  novo.addCartasTurno(novo.cartasMaquina.get(i));
                     novo.removerCartasMaquina(i);
                 }
             }
             
-        //System.out.println("Posicao:"+i);
         switch (--i) {
             case 0:
                 lbl_carta4.setVisible(false);
@@ -526,6 +594,25 @@ public class Jogo1 extends javax.swing.JFrame {
     
     }
     
-    public void chamarTruco(){}
+    public void chamarTrucoJogador(){
+        //JOptionPane.showMessageDialog(null, "Truco!");
+        Maquina maquina = new Maquina();
+        
+        if(trucoAceita == 0){
+            if(maquina.maquinaAceitaTruco(novo.cartasMaquina)){
+                JOptionPane.showMessageDialog(null, "Máquina Aceitou");
+                trucoAceita+=3;
+                tornar();
+            }else{
+                JOptionPane.showMessageDialog(null, "Máquina Fugiu");
+                //falta visao
+                //maoJogadorPontos++;
+                //tornar();
+            }
+        }else{
+            
+        }
+            
+    }
     
 }

@@ -24,6 +24,7 @@ public class Jogo1 extends javax.swing.JFrame {
     ArrayList<Cartas> maquinaCartasComExclusao = new ArrayList<Cartas>();
     int metodo=0;
     int trucoAceita=0;
+    boolean maqAceita=true;
     
     /**
      * Creates new form Jogo
@@ -323,17 +324,21 @@ public class Jogo1 extends javax.swing.JFrame {
             System.out.println("Cartas Maquina");
             novo.mostrarCartasMaquina();
             
+            maqAceita=true;
                     
             while(rodada<=3 && 
                     !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
                     !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0) &&
                     !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1) &&
-                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1)){
+                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1) &&
+                    maqAceita){
                 if(vez==0){
                     tornar();
-                    tornarMaquina();
-                    verificarRodada();
-                    rodada++;
+                    if(maqAceita){
+                        tornarMaquina();
+                        verificarRodada();
+                        rodada++;
+                    }
                 }else if(vez==1){
                     tornarMaquina();
                     tornar();
@@ -462,6 +467,9 @@ public class Jogo1 extends javax.swing.JFrame {
                 maoJogadorPontos++; 
                 lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
             }           
+        }else if(!maqAceita){
+            maoJogadorPontos++; 
+            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
         }
         
         rodada = 1;
@@ -599,15 +607,13 @@ public void tornar(){
         Maquina maquina = new Maquina();
         
         if(trucoAceita == 0){
-            if(maquina.maquinaAceitaTruco(novo.cartasMaquina)){
+            maqAceita = maquina.maquinaAceitaTruco(novo.cartasMaquina);
+            if(maqAceita){
                 JOptionPane.showMessageDialog(null, "Máquina Aceitou");
                 trucoAceita+=3;
                 tornar();
             }else{
                 JOptionPane.showMessageDialog(null, "Máquina Fugiu");
-                //falta visao
-                //maoJogadorPontos++;
-                //tornar();
             }
         }else{
             

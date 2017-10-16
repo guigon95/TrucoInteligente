@@ -298,7 +298,7 @@ public class Jogo1 extends javax.swing.JFrame {
     }
     
    public void iniciarJogada(){
-       while(maoJogadorPontos <= 12 || maoMaquinaPontos <=12){
+       while((maoJogadorPontos <= 11 && maoMaquinaPontos <=11)){
             
             novo = new Baralho();
             novo.geraBaralho();
@@ -325,31 +325,69 @@ public class Jogo1 extends javax.swing.JFrame {
             novo.mostrarCartasMaquina();
             
             maqAceita=true;
-                    
-            while(rodada<=3 && 
-                    !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
-                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0) &&
-                    !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1) &&
-                    !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1) &&
-                    maqAceita){
-                if(vez==0){
-                    tornar();
-                    if(maqAceita){
+            if(!(maoJogadorPontos == 11) && !(maoMaquinaPontos == 11)){
+                System.out.println("if normal");
+                
+                while(rodada<=3 && 
+                        !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
+                        !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0) &&
+                        !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1) &&
+                        !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1) &&
+                        maqAceita){
+                    if(vez==0){
+                        tornar();
+                        if(maqAceita){      //maquina n aceitou truco então maqAceita==false
+                            tornarMaquina();
+                            verificarRodada();
+                            rodada++;
+                        }
+                    }else if(vez==1){
                         tornarMaquina();
-                        verificarRodada();
-                        rodada++;
+                        tornar();
+                        if(maqAceita){      //maquina n aceitou truco então maqAceita==false
+                            verificarRodada();
+                            rodada++;
+                        }
                     }
-                }else if(vez==1){
-                    tornarMaquina();
-                    tornar();
-                    verificarRodada();
-                    rodada++;
-                }
+               }
+                
+           }else{
+                while(rodada<=3 && 
+                        !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 0) &&
+                        !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 0) &&
+                        !(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1) &&
+                        !(rodadaMaquinaPontos == 2 && rodadaJogadorPontos == 1) &&
+                        maoMaquinaPontos!=12){
+                    if(vez==0){
+                        tornar();
+                        if(maoMaquinaPontos!=12){      //se jogador pedir truco, entao maquina recebe 12 e vence
+                            tornarMaquina();
+                            verificarRodada();
+                            rodada++;
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Pato, pediu truco na mão de Onze");
+                            finalizarJogo();
+                        }
+                    }else if(vez==1){
+                        tornarMaquina();
+                        tornar();
+                        if(maoMaquinaPontos!=12){//se jogador pedir truco, entao maquina recebe 12 e vence
+                            verificarRodada();
+                            rodada++;
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Pato, pediu truco na mão de Onze");
+                            finalizarJogo();
+                        }
+                    }
+               }
+            
+            
            }
             
-           verificarMao();
-           
-      }      
+            verificarMao();
+            
+      }
+       finalizarJogo();
     }    
     
     public void mostrarCartasVira(String numero, String naipe){
@@ -426,8 +464,8 @@ public class Jogo1 extends javax.swing.JFrame {
                 maoMaquinaPontos+=trucoAceita; 
                 lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }else{
-                maoJogadorPontos++; 
-                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+                maoMaquinaPontos++; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }
         }else if(rodadaJogadorPontos > rodadaMaquinaPontos && rodada > 3){
             JOptionPane.showMessageDialog(null, "Jogador Ganhou a Mão!");
@@ -445,8 +483,8 @@ public class Jogo1 extends javax.swing.JFrame {
                 maoMaquinaPontos+=trucoAceita; 
                 lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }else{
-                maoJogadorPontos++; 
-                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+                maoMaquinaPontos++; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }            
         //empate
         }else if(rodadaJogadorPontos == 2 && rodadaMaquinaPontos == 1){ //n consigo testar essa merda pq n da empate kkkk
@@ -464,8 +502,8 @@ public class Jogo1 extends javax.swing.JFrame {
                 maoMaquinaPontos+=trucoAceita; 
                 lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }else{
-                maoJogadorPontos++; 
-                lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+                maoMaquinaPontos++; 
+                lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
             }           
         }else if(!maqAceita){
             maoJogadorPontos++; 
@@ -545,19 +583,30 @@ public void tornar(){
            }
             
             if(posCartaEscolhida > novo.cartasJogador.size()-1){
-                chamarTrucoJogador();
+                if(maoJogadorPontos==11){
+                    maoMaquinaPontos=12;
+                    
+                }else
+                    chamarTrucoJogador();
+                
             }else{
                 novo.setTurno(novo.cartasJogador.get(posCartaEscolhida)); //add carta array turno
                 mostrarCartasTurnoJogador(novo.cartasJogador.get(posCartaEscolhida).getNumero(), novo.cartasJogador.get(posCartaEscolhida).getNaipe().toLowerCase());
 
-                if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(0).getValor()){
+                if(novo.cartasJogador.get(posCartaEscolhida).getNumero().equals(novo.cartasJogadorSemExclusao.get(0).getNumero()) &&
+                        novo.cartasJogador.get(posCartaEscolhida).getNaipe().equals(novo.cartasJogadorSemExclusao.get(0).getNaipe())){
                     lbl_carta1.setVisible(false);
+                    System.out.println("carta1");
                 }
-                else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(1).getValor()){;
-                    lbl_carta2.setVisible(false);                
+                else if(novo.cartasJogador.get(posCartaEscolhida).getNumero().equals(novo.cartasJogadorSemExclusao.get(1).getNumero()) &&
+                        novo.cartasJogador.get(posCartaEscolhida).getNaipe().equals(novo.cartasJogadorSemExclusao.get(1).getNaipe())){;
+                    lbl_carta2.setVisible(false);
+                    System.out.println("carta2");                
                 }
-                else if(novo.cartasJogador.get(posCartaEscolhida).getValor() == novo.cartasJogadorSemExclusao.get(2).getValor()){
-                    lbl_carta3.setVisible(false);                
+                else if(novo.cartasJogador.get(posCartaEscolhida).getNumero().equals(novo.cartasJogadorSemExclusao.get(2).getNumero()) &&
+                        novo.cartasJogador.get(posCartaEscolhida).getNaipe().equals(novo.cartasJogadorSemExclusao.get(2).getNaipe())){
+                    lbl_carta3.setVisible(false);
+                    System.out.println("carta3");                
                 }
             
                 novo.removerCartasJogador(posCartaEscolhida);
@@ -615,10 +664,32 @@ public void tornar(){
             }else{
                 JOptionPane.showMessageDialog(null, "Máquina Fugiu");
             }
-        }else{
-            
+        }else if(trucoAceita ==3){
+            //falta
         }
             
     }
     
+    public void finalizarJogo(){
+            if(maoJogadorPontos==12){
+                JOptionPane.showMessageDialog(null, "Jogador Ganhou o Jogo!");
+            }else if(maoMaquinaPontos==12){
+                JOptionPane.showMessageDialog(null, "Maquina Ganhou o Jogo!");
+            }
+            rodada = 1;
+            rodadaMaquinaPontos = 0;
+            rodadaJogadorPontos = 0;
+            lbl_pontosJogador.setText(String.valueOf(rodadaJogadorPontos));
+            lbl_pontosMaquina.setText(String.valueOf(rodadaMaquinaPontos));
+            vez = 0;
+            maoJogadorPontos=0;
+            maoMaquinaPontos =0;
+            lbl_pontosJogadorTotal.setText(String.valueOf(maoJogadorPontos));
+            lbl_pontosMaquinaTotal.setText(String.valueOf(maoMaquinaPontos));
+            metodo=0;
+            trucoAceita=0;
+            maqAceita=true;
+            
+            
+    }
 }
